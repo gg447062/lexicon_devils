@@ -1,41 +1,50 @@
-const container = document.getElementById('links_container1');
-let spoken = false;
+const wrappers = document.querySelectorAll('div.link-wrapper');
+const links = document.querySelectorAll('a');
+const devil = document.getElementById('big-devil');
 
-const devilWords = {
-  0: 'fuck off',
-  1: 'hee hee hee',
-  2: 'click the damn link',
-  3: `it's boring there`,
-  4: 'bad choice',
-};
+const container = document.getElementById('links-container');
+
+wrappers.forEach((wrapper) => {
+  wrapper.addEventListener('mouseenter', () => {
+    const link = wrapper.children[0];
+
+    link.style.transform = 'scaleX(-1.5)';
+  });
+});
+
+wrappers.forEach((wrapper) => {
+  wrapper.addEventListener('mouseleave', () => {
+    const link = wrapper.children[0];
+    link.style.transform = 'scaleX(1)';
+  });
+});
 
 document.addEventListener('mousemove', (e) => {
+  const midX = window.innerWidth / 2;
+  const midY = window.innerHeight / 2;
   const mouseX = e.pageX;
   const mouseY = e.pageY;
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
-  const diffX = centerX - mouseX;
-  const diffY = centerY - mouseY;
-
+  const diffX = midX - mouseX;
+  const diffY = midY - mouseY;
   const midHeight = parseInt(container.style.height) / 2;
   const midWidth = parseInt(container.style.width) / 2;
+  const offsetX = midX - midWidth;
+  const offsetY = midY - midHeight;
 
-  container.style.top = `${centerY - midHeight + diffY / 30}px`;
-  container.style.left = `${centerX - midWidth + diffX / 15}px`;
+  container.style.top = `${offsetY + diffY / 15}px`;
+  container.style.left = `${offsetX + diffX / 20}px`;
+
+  container.style.boxShadow = `
+  ${diffX / 20}px ${diffY / 30}px rgb(30, 30, 220)`;
 });
 
-container.addEventListener('mouseenter', () => {
-  if (spoken === false) {
-    spoken = true;
-    const words = document.getElementById('devil-words');
+function bounce() {
+  devil.style.bottom = '25px';
+  setTimeout(() => {
+    devil.style.bottom = '15px';
+  }, 1000);
+}
 
-    const random = Math.floor(Math.random() * 5);
-
-    words.innerHTML = devilWords[random];
-
-    setTimeout(() => {
-      words.innerHTML = '';
-      spoken = false;
-    }, 3000);
-  }
-});
+setInterval(() => {
+  bounce();
+}, 2000);
