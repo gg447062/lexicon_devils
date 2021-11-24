@@ -1,0 +1,66 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  font-size: 10px;
+  font-family: "VT323", monospace;
+  cursor: url(devil_cursor.cur), auto;
+  background-color: #ffea00;
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #1e1edc;
+  font-size: 5em;
+  padding: 0.5em;
+}
+
+a {
+  color: #1e1edc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e31313;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  top: calc(50vh - 1em);
+  left: calc(50vw - 40em);
+  z-index: 3;
+}
+
+.links {
+  position: relative;
+  padding: 0.5em;
+  margin: 1em;
+  font-size: 4em;
+}
+
+#devil-container {
+  position: fixed;
+  bottom: 2em;
+  left: 2em;
+}
+
+#devil-words {
+  position: fixed;
+  bottom: 4em;
+  left: 3em;
+  font-size: 3em;
+  color: #e31313;
+}
+
+#devil {
+  height: 12em;
+  width: height;
+}
+
+/*# sourceMappingURL=main.css.map */

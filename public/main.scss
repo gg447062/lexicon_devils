@@ -1,0 +1,74 @@
+@use 'sass:math';
+$text_main: rgb(30, 30, 220);
+$text_secondary: rgb(227, 19, 19);
+$body_color: rgb(255, 234, 0);
+
+$centerX: math.div(100vw, 2);
+$centerY: math.div(100vh, 2);
+
+@mixin flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  font-size: 10px;
+  font-family: 'VT323', monospace;
+  cursor: url(devil_cursor.cur), auto;
+  background-color: $body_color;
+}
+
+header {
+  @include flex;
+  color: $text_main;
+  font-size: 5em;
+  padding: 0.5em;
+}
+
+a {
+  color: $text_main;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $text_secondary;
+}
+
+.container {
+  @include flex;
+  position: absolute;
+  top: calc(50vh - 1em);
+  left: calc(50vw - 40em);
+  z-index: 3;
+}
+
+.links {
+  position: relative;
+  padding: 0.5em;
+  margin: 1em;
+  font-size: 4em;
+}
+
+#devil-container {
+  position: fixed;
+  bottom: 2em;
+  left: 2em;
+}
+
+#devil-words {
+  position: fixed;
+  bottom: 4em;
+  left: 3em;
+  font-size: 3em;
+  color: $text_secondary;
+}
+
+#devil {
+  height: 12em;
+  width: height;
+}
