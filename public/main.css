@@ -7,6 +7,8 @@ body {
   font-family: "VT323", monospace;
   cursor: url(devil_cursor.cur), auto;
   background-color: #ffea00;
+  background-image: url("devil_logo_2.jpg");
+  background-position: 50% 0%;
   color: #1e1edc;
 }
 
@@ -14,6 +16,7 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  justify-content: flex-start;
   color: #1e1edc;
   font-size: 5em;
   position: absolute;
@@ -25,6 +28,11 @@ header p {
   margin: 0;
   font-size: 1em;
   transform: scaleX(2);
+}
+
+#header-logo-1 {
+  height: 140px;
+  margin-left: 20px;
 }
 
 #links-container {
@@ -86,32 +94,63 @@ a {
   padding: 0.5em;
 }
 
-.header-devil {
-  height: 40px;
-}
-
-#header-group {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 600px;
-  padding: 0.25em;
-  border-bottom: 1px dashed #1e1edc;
-  border-left: 1px dashed #1e1edc;
-  border-right: 1px dashed #1e1edc;
-}
-
-#devil-left {
-  transform: scaleX(-1);
-}
-
 #big-devil {
   position: absolute;
   bottom: 15px;
   right: 10px;
   height: 300px;
-  transition: bottom 1s;
-  transition-timing-function: ease-in-out;
+}
+
+#devil-speech {
+  position: absolute;
+  background-color: #ffea00;
+  z-index: 3;
+  bottom: 315px;
+  right: 30px;
+  text-align: center;
+  font-size: 20px;
+  width: 280px;
+  padding: 0.5em;
+  box-shadow: 5px 5px #1e1edc;
+  border: 1px solid #1e1edc;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#devil-speech:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  z-index: 2;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent #ffea00 transparent transparent;
+  bottom: -20px;
+  left: 50%;
+  margin-left: -12px;
+}
+
+#devil-speech::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  z-index: 1;
+  border-style: solid;
+  border-width: 0 21px 21px 0;
+  border-color: transparent #1e1edc transparent transparent;
+  bottom: -22px;
+  left: 50%;
+  margin-left: -12px;
+  display: block;
+  box-shadow: 3px 0px #1e1edc;
+}
+
+#flying-devil {
+  height: 100px;
+  position: absolute;
+  left: -100px;
+  z-index: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

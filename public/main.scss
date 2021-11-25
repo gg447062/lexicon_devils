@@ -22,11 +22,14 @@ body {
   font-family: 'VT323', monospace;
   cursor: url(devil_cursor.cur), auto;
   background-color: $body_color;
+  background-image: url('devil_logo_2.jpg');
+  background-position: 50% 0%;
   color: $text_main;
 }
 
 header {
   @include flex;
+  justify-content: flex-start;
   color: $text_main;
   font-size: 5em;
   position: absolute;
@@ -38,6 +41,11 @@ header p {
   margin: 0;
   font-size: 1em;
   transform: scaleX(2);
+}
+
+#header-logo-1 {
+  height: 140px;
+  margin-left: 20px;
 }
 
 #links-container {
@@ -95,28 +103,63 @@ a {
   padding: 0.5em;
 }
 
-.header-devil {
-  height: 40px;
-}
-
-#header-group {
-  @include flex;
-  width: 600px;
-  padding: 0.25em;
-  border-bottom: 1px dashed $text_main;
-  border-left: 1px dashed $text_main;
-  border-right: 1px dashed $text_main;
-}
-
-#devil-left {
-  transform: scaleX(-1);
-}
-
 #big-devil {
   position: absolute;
   bottom: 15px;
   right: 10px;
   height: 300px;
-  transition: bottom 1s;
-  transition-timing-function: ease-in-out;
+  // transition: bottom 1s;
+  // transition-timing-function: ease-in-out;
+}
+
+#devil-speech {
+  position: absolute;
+  background-color: $body_color;
+  z-index: 3;
+  bottom: 315px;
+  right: 30px;
+  text-align: center;
+  font-size: 20px;
+  width: 280px;
+  padding: 0.5em;
+  box-shadow: 5px 5px $text_main;
+  border: 1px solid $text_main;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#devil-speech:after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  z-index: 2;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent $body_color transparent transparent;
+  bottom: -20px;
+  left: 50%;
+  margin-left: -12px;
+}
+
+#devil-speech::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  z-index: 1;
+  border-style: solid;
+  border-width: 0 21px 21px 0;
+  border-color: transparent $text_main transparent transparent;
+  bottom: -22px;
+  left: 50%;
+  margin-left: -12px;
+  display: block;
+  box-shadow: 3px 0px $text_main;
+}
+
+#flying-devil {
+  height: 100px;
+  position: absolute;
+  left: -100px;
+  z-index: 0;
 }
