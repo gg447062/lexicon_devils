@@ -2,13 +2,15 @@ const wrappers = document.querySelectorAll('div.link-wrapper');
 const links = document.querySelectorAll('a');
 const devil = document.getElementById('big-devil');
 const container = document.getElementById('links-container');
+const linksBody = document.getElementById('links-body');
 const devilSpeech = document.getElementById('devil-speech');
 const flyingDevil = document.getElementById('flying-devil');
 const body = document.querySelector('body');
+const c1 = document.getElementById('c1');
 let spoken = false;
-let t = 0;
+let time = 0;
 let x = 200;
-let y = -100;
+let flipped = false;
 
 const devilWords = {
   0: `the chat is over there dummy i'm just a bot`,
@@ -73,35 +75,22 @@ devil.addEventListener('mouseenter', () => {
 });
 
 function bounce() {
-  let y = 5 * Math.sin(t / 20);
+  let y = 5 * Math.sin(time / 20);
   devil.style.bottom = `${y + 20}px`;
-  t++;
+  time++;
   requestAnimationFrame(bounce);
 }
 
 function fly() {
-  const inFrame =
-    x < window.innerWidth + 100 &&
-    x > -200 &&
-    y < window.innerHeight + 100 &&
-    y > -200;
-
-  flyingDevil.style.left = `${x}px`;
-  flyingDevil.style.top = `${y}px`;
-
-  y++;
-  x++;
-
-  if (inFrame) {
-    requestAnimationFrame(fly);
-  } else {
-    console.log('stopped');
+  const increment = { true: -2, false: 2 };
+  flyingDevil.style.top = `${x}px`;
+  if (x === window.innerHeight - 102 || x === 128) {
+    flipped = !flipped;
   }
+  x += increment[flipped];
+
+  requestAnimationFrame(fly);
 }
 
-setInterval(() => {
-  x = 200;
-  y = -100;
-  fly();
-}, 7000);
+fly();
 bounce();
