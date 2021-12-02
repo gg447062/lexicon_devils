@@ -2,6 +2,9 @@ const links = document.querySelectorAll('a');
 const devil = document.getElementById('big-devil');
 const chat = document.getElementById('chat_container');
 const chatbox = document.getElementById('devil-chat');
+const devilForm = document.getElementById('devil-form');
+const input = document.getElementById('devil_chat_input');
+const button = document.getElementById('chat-button');
 const fg = document.getElementById('fg_img');
 const bg = document.getElementById('bg_img');
 const devilSpeech = document.getElementById('devil-speech');
@@ -10,23 +13,31 @@ const body = document.querySelector('body');
 const headerLink = document.getElementById('header-link');
 
 let spoken = false;
-let display = true;
-const heights = { true: ['600px', '300px'], false: ['300px', '0px'] };
-const opacityStyle = { true: '1', false: '0' };
 let time = 0;
+let clicked = 0;
 
 const devilWords = {
   0: `the chat is over there dummy i'm just a bot`,
   1: 'lexicon devils makes you smarter.',
   2: `can i suggest try typing in the chat?
-      the link to the discord is in the '...'`,
+  the link to the discord is in the '...'`,
   3: 'having trouble?',
   4: `hello again,
-      i think you should try the twitter.`,
+  i think you should try the twitter.`,
 };
 
-headerLink.onclick = () => {
-  flyingDevil.setAttribute('src', 'assets/devil_hands.png');
+headerLink.onclick = (e) => {
+  if (clicked < 1) {
+    e.preventDefault();
+    flyingDevil.setAttribute('src', 'assets/devil_hands.png');
+    clicked++;
+  }
+  if (clicked < 2) {
+    setTimeout(() => {
+      clicked++;
+      headerLink.click();
+    }, 500);
+  }
 };
 
 // wrappers.forEach((wrapper) => {
@@ -58,16 +69,26 @@ document.addEventListener('mousemove', (e) => {
 
   fg.style.top = `${offsetY + diffY / 15}px`;
   fg.style.left = `${fgOffsetX + diffX / 20}px`;
-  bg.style.top = `${offsetY - diffY / 15}px`;
-  bg.style.left = `${bgOffsetX - diffX / 20}px`;
+  bg.style.top = `${offsetY - diffY / 5}px`;
+  bg.style.left = `${bgOffsetX - diffX / 10}px`;
   body.style.backgroundPosition = `${diffX / 100}% ${diffY / 200}%`;
 });
+
+let display = false;
+const heights = {
+  true: ['600px', '300px', '35px', '25px'],
+  false: ['300px', '0px', '0px', '0px'],
+};
+const opacityStyle = { true: '1', false: '0' };
 
 devil.onclick = () => {
   display = !display;
   chat.style.height = heights[display][0];
   chatbox.style.opacity = opacityStyle[display];
   chatbox.style.height = heights[display][1];
+  devilForm.style.height = heights[display][2];
+  input.style.height = heights[display][3];
+  button.style.height = heights[display][3];
 };
 
 function bounce() {
