@@ -11,6 +11,7 @@ const devilSpeech = document.getElementById('devil-speech');
 const flyingDevil = document.getElementById('flying-devil');
 const body = document.querySelector('body');
 const headerLink = document.getElementById('header-link');
+const messages = document.getElementById('messages-container');
 
 let spoken = false;
 let time = 0;
@@ -60,7 +61,7 @@ document.addEventListener('mousemove', (e) => {
   const midY = window.innerHeight / 2;
   const diffX = midX - e.pageX;
   const diffY = midY - e.pageY;
-  const midHeight = fg.height / 2;
+  const midHeight = fg.height * 0.65;
   const fgMidWidth = fg.width / 2;
   const bgMidWidth = bg.width / 2;
   const bgOffsetX = midX - bgMidWidth;
@@ -89,13 +90,59 @@ devil.onclick = () => {
   devilForm.style.height = heights[display][2];
   input.style.height = heights[display][3];
   button.style.height = heights[display][3];
+  if (display) {
+    devilSpeech.style.opacity = 0;
+  }
 };
 
-function bounce() {
+devil.addEventListener('mouseenter', () => {
+  if (!display) {
+    devilSpeech.style.opacity = 1;
+  }
+});
+
+devil.addEventListener('mouseleave', () => {
+  devilSpeech.style.opacity = 0;
+});
+
+const bounce = () => {
   let y = 5 * Math.sin(time / 20);
   devil.style.top = `${y - 20}px`;
   time++;
   requestAnimationFrame(bounce);
-}
+};
+
+let message;
+
+input.onchange = (e) => {
+  message = e.target.value;
+};
+
+devilForm.onsubmit = (e) => {
+  e.preventDefault();
+  if (message.length > 0) {
+    writeMessage();
+    setTimeout(() => {
+      devilResponse();
+    }, 1000);
+    devilForm.reset();
+    message = '';
+  }
+};
+
+const writeMessage = () => {
+  let newMessage = document.createElement('li');
+  newMessage.innerHTML = message;
+  newMessage.className = 'user message';
+  newMessage = messages.appendChild(newMessage);
+};
+
+const devilResponse = () => {
+  const index = Math.floor(Math.random() * 5);
+  let newMessage = document.createElement('li');
+  newMessage.innerHTML = devilWords[index];
+  newMessage.className = 'devil message';
+  newMessage = messages.appendChild(newMessage);
+};
 
 bounce();

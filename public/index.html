@@ -28,22 +28,25 @@
 
     <img id="bg_img" src="assets/lexicon_yellow.png" style="height: 400px" />
     <img id="fg_img" src="assets/falling_devil.png" style="height: 400px" />
+    <div id="wrapper">
 
     <div id="chat_container">
-      <p id="devil-speech"></p>
+      <p id="devil-speech">need help? click me</p>
       <img id="big-devil" src="assets/big_devil.png" alt="a big devil" />
       <div id="devil-chat">
-        <div id="messages-container"></div>
+        <ul id="messages-container"></ul>
         <form id="devil-form">
           <input
             id="devil_chat_input"
             type="text"
             placeholder="lexicon devils help..."
+            autocomplete="off"
           />
           <button id="chat-button" type="submit">ask</button>
         </form>
       </div>
     </div>
+
     <footer>
       <a
         id="docs"
