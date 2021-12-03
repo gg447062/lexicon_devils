@@ -17,15 +17,15 @@ let spoken = false;
 let time = 0;
 let clicked = 0;
 
-const devilWords = {
-  0: `the chat is over there dummy i'm just a bot`,
-  1: 'lexicon devils makes you smarter.',
-  2: `can i suggest try typing in the chat?
-  the link to the discord is in the '...'`,
-  3: 'having trouble?',
-  4: `hello again,
-  i think you should try the twitter.`,
-};
+const devilWords = [
+  `the chat is over there dummy i'm just a bot`,
+  'lexicon devils makes you smarter.',
+  `can i suggest try typing in the chat? the link to the discord is in the '...'`,
+  'having trouble?',
+  `hello again, i think you should try the twitter.`,
+  "I'm the devil >:)",
+  "I'm a lexicon devil with a battered brain",
+];
 
 headerLink.onclick = (e) => {
   if (clicked < 1) {
@@ -138,7 +138,7 @@ const writeMessage = () => {
 };
 
 const devilResponse = () => {
-  const index = Math.floor(Math.random() * 5);
+  const index = Math.floor(Math.random() * devilWords.length);
   let newMessage = document.createElement('li');
   newMessage.innerHTML = devilWords[index];
   newMessage.className = 'devil message';
