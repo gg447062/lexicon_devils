@@ -13,6 +13,9 @@ const body = document.querySelector('body');
 const headerLink = document.getElementById('header-link');
 const messages = document.getElementById('messages-container');
 
+const hasTouchscreen = 'ontouchstart' in window;
+alert(hasTouchscreen ? 'has touchscreen' : "doesn't have touchscreen");
+
 let spoken = false;
 let time = 0;
 let clicked = 0;
