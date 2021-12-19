@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexicon Devils</title>
     <link rel='icon' type="image/x-icon" href="/public/assets/Lexicon_Devil_Germs.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
+    <div id='main-bg'></div>
     <header>
       <a
         id="header-link"
@@ -20,25 +22,61 @@
         target="blank"
       >
         <img
-          id="flying-devil"
+          id="header-devil"
           src="assets/Lexicon_Devil_Germs.png"
           alt="a lexicon devil"
         />
       </a>
+      <a
+        id="docs"
+        class='header-links'
+        href="https://lexicon-devils.gitbook.io/lexicon-devils-1/TRnTFXi1oNTxr3YmlgsN/"
+        target="blank"
+      >
+        <img
+          src="assets/gitbook.png"
+          alt="gitbook logo"
+          class="links"
+          style="height: 50px; padding-left: 5px"
+        />
+      </a>
+      <a id="twitter" class='header-links'href="https://twitter.com/devils_lexicon" target="blank">
+        <img src="assets/twitter.png" class="links" />
+      </a>
+      <a id="discord" class='header-links'href="https://discord.gg/zhThyjFpz4" target="blank">
+        <img src="assets/discord.png" class="links" />
+      </a>
+      <a
+        id="cryptovoxels"
+        class='header-links'
+        href="https://www.cryptovoxels.com/play?coords=SW@6703W,48N"
+        target="blank"
+      >
+        <img src="assets/cryptovoxels.png" class="links" />
+      </a>
+      <a
+        id="juicebox"
+        class='header-links'
+        href="https://juicebox.money/#/p/lexicondevils"
+        target="blank"
+      >
+        <img src="assets/juicebox.png" class="links" style="height: 50px" />
+      </a>
     </header>
 
-    <img id="bg_img" src="assets/lexicon_yellow.png" style="height: 400px" />
-    <img id="fg_img" src="assets/falling_devil.png" style="height: 400px" />
+    <img id="bg-img" src="assets/lexicon_yellow.png"  />
+    <img id="fg-img" src="assets/falling_devil.png"  />
     <div id="wrapper">
 
-    <div id="chat_container">
+    <div id="chat-container">
       <p id="devil-speech">need help? click me</p>
       <img id="big-devil" src="assets/big_devil.png" alt="a big devil" />
       <div id="devil-chat">
+        <img class='mobile-chat-icon' src='assets/lexicon_yellow.png' alt='lexicon logo'>
         <ul id="messages-container"></ul>
         <form id="devil-form">
           <input
-            id="devil_chat_input"
+            id="devil-chat-input"
             type="text"
             placeholder="lexicon devils help..."
             autocomplete="off"
@@ -47,6 +85,7 @@
         </form>
       </div>
     </div>
+    <div id='chat-switch'>need help? chat with an specialist</div>
 
     <footer>
       <a

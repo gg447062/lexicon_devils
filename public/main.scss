@@ -1,7 +1,8 @@
 @use 'sass:math';
 $text_main: rgb(30, 30, 220);
-$text_secondary: #f31404;
+$text_secondary: #ff0000;
 $body_color: #ffbb00;
+$body_two: rgb(5, 225, 250);
 $font_main: 'VT323', monospace;
 
 $centerX: math.div(100vw, 2);
@@ -17,18 +18,46 @@ $centerY: math.div(100vh, 2);
   border: 1px solid $text_main;
 }
 
+// ----- breakpoints ----
+
+@mixin phone-only {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+@mixin tablet-portrait-up {
+  @media (min-width: 600px) {
+    @content;
+  }
+}
+@mixin tablet-landscape-up {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+@mixin desktop-up {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin big-desktop-up {
+  @media (min-width: 1800px) {
+    @content;
+  }
+}
+
 body {
-  margin: 0 auto;
-  padding: 0;
   width: 100vw;
   height: 100vh;
+  margin: 0;
+  padding: 0;
   font-size: 10px;
-  box-sizing: border-box;
   font-family: $font_main;
-  cursor: url(assets/devil_cursor.cur), auto;
-  background-color: $body_color;
-  background-image: url('assets/blue_bg.jpg');
-  background-position: 50% 0%;
+  cursor: url(assets/pointer.cur), auto;
+  background-color: $text_secondary;
+  background-image: url('assets/desktop_background_2.png');
+  background-size: cover;
+  overflow: hidden;
   color: $text_main;
 }
 
@@ -38,9 +67,16 @@ header {
   color: $text_main;
   font-size: 5em;
   position: absolute;
+  top: 0px;
   width: 100%;
   z-index: 3;
   height: 110px;
+}
+
+.header-links {
+  @include tablet-portrait-up() {
+    display: none;
+  }
 }
 
 footer {
@@ -48,6 +84,15 @@ footer {
   width: 35%;
   position: absolute;
   bottom: 5px;
+  left: 0;
+  @include phone-only() {
+    display: none;
+    top: 0px;
+  }
+}
+
+a:hover {
+  cursor: url(assets/hover_pointer.cur), auto;
 }
 
 button {
@@ -59,34 +104,48 @@ button {
   transition: all 1s ease;
 }
 
-// a {
-//   display: block;
-//   color: $text_secondary;
-//   text-decoration: none;
-// }
-
-#flying-devil {
-  position: absolute;
-  height: 70px;
-  top: 5px;
+#header-devil {
+  height: 80px;
   z-index: 0;
+  @include phone-only() {
+    height: 70px;
+    top: 11px;
+  }
 }
 
-#chat_container {
+.links {
+  height: 60px;
+}
+
+// ------- chat -------
+
+#chat-container {
   position: absolute;
-  bottom: 15px;
+  bottom: 10px;
   right: 10px;
   height: 300px;
   width: 250px;
+  margin: 0;
+  z-index: 5;
   transition: height 1s ease;
+  @include phone-only() {
+    right: 1%;
+    height: 55px;
+    width: 95%;
+  }
 }
 
 #big-devil {
   position: absolute;
-  top: 0px;
   right: -10px;
   height: 300px;
   z-index: 3;
+  @include phone-only() {
+    opacity: 0;
+    right: -10px;
+    height: 150px;
+    transition: all 1.25s ease;
+  }
 }
 
 #devil-chat {
@@ -102,6 +161,12 @@ button {
   height: 0px;
   opacity: 0;
   transition: all 1s ease;
+  @include phone-only() {
+    justify-content: flex-end;
+    -webkit-transition: all 1s ease;
+    -webkit-transition: -webkit-transform 1s ease;
+    transition: all 1s ease;
+  }
 }
 
 #messages-container {
@@ -116,6 +181,13 @@ button {
   height: 89%;
   width: 100%;
   font-size: 20px;
+  @include phone-only() {
+    width: 75%;
+    height: 85%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
 
 .message {
@@ -136,6 +208,38 @@ button {
   align-self: flex-start;
 }
 
+.mobile-chat-icon {
+  width: 20%;
+  display: none;
+  @include phone-only() {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    right: 5px;
+    top: 15px;
+  }
+}
+
+#chat-switch {
+  display: none;
+  text-align: center;
+  @include phone-only() {
+    display: block;
+    @include blue-border();
+    background-color: $body_color;
+    padding: 5px;
+    margin: 0px;
+    width: 100%;
+    color: $text_main;
+    font-size: 20px;
+    position: absolute;
+    z-index: 10;
+    bottom: -3.1%;
+  }
+}
+
+// ----- chat input form -----
+
 #devil-form {
   @include flex;
   padding: 5px;
@@ -145,24 +249,28 @@ button {
   transition: all 1.25s ease;
 }
 
-#devil_chat_input {
+#devil-chat-input {
   border-radius: 5px;
   @include blue-border;
   box-sizing: border-box;
   height: 0px;
-  width: 75%;
+  width: 100%;
   margin-right: 5px;
   background-color: $body_color;
   color: $text_main;
   padding: 5px;
   transition: all 1s ease;
   font-family: $font_main;
+  font-size: 16px;
 }
 
-#devil_chat_input:focus {
+#devil-chat-input:focus {
   outline: none;
   background-color: $text_main;
   color: $body_color;
+  @include phone-only() {
+    font-size: 16px;
+  }
 }
 
 ::placeholder {
@@ -215,20 +323,30 @@ button {
   box-shadow: 3px 0px $text_main;
 }
 
-#bg_img {
+// ---------- center images
+
+#bg-img {
   position: absolute;
   top: calc(50vh - 200px);
   left: calc(50vw - 300px);
+  height: 400px;
   z-index: 0;
+  @include phone-only() {
+    height: 200px;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 150px);
+  }
 }
 
-#fg_img {
+#fg-img {
   position: absolute;
   top: calc(50vh - 200px);
   left: calc(50vw - 200px);
+  height: 400px;
   z-index: 3;
-}
-
-.links {
-  height: 60px;
+  @include phone-only() {
+    height: 200px;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 100px);
+  }
 }
