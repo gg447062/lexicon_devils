@@ -1,17 +1,18 @@
 const links = document.querySelectorAll('a');
 const devil = document.getElementById('big-devil');
-const chat = document.getElementById('chat_container');
+const chat = document.getElementById('chat-container');
 const chatbox = document.getElementById('devil-chat');
 const devilForm = document.getElementById('devil-form');
-const input = document.getElementById('devil_chat_input');
+const input = document.getElementById('devil-chat-input');
 const button = document.getElementById('chat-button');
-const fg = document.getElementById('fg_img');
-const bg = document.getElementById('bg_img');
+const fg = document.getElementById('fg-img');
+const bg = document.getElementById('bg-img');
 const devilSpeech = document.getElementById('devil-speech');
-const flyingDevil = document.getElementById('flying-devil');
+const headerDevil = document.getElementById('header-devil');
 const body = document.querySelector('body');
 const headerLink = document.getElementById('header-link');
 const messages = document.getElementById('messages-container');
+const chatSwitch = document.getElementById('chat-switch');
 
 const hasTouchscreen = 'ontouchstart' in window;
 alert(hasTouchscreen ? 'has touchscreen' : "doesn't have touchscreen");
@@ -28,12 +29,14 @@ const devilWords = [
   `hello again, i think you should try the twitter.`,
   "I'm the devil >:)",
   "I'm a lexicon devil with a battered brain",
+  'hee hee hee',
+  "you're outta luck",
 ];
 
 headerLink.onclick = (e) => {
   if (clicked < 1) {
     e.preventDefault();
-    flyingDevil.setAttribute('src', 'assets/devil_hands.png');
+    headerDevil.setAttribute('src', 'assets/devil_hands.png');
     clicked++;
   }
   if (clicked < 2) {
@@ -59,7 +62,7 @@ headerLink.onclick = (e) => {
 //   });
 // });
 
-document.addEventListener('mousemove', (e) => {
+const moveBg = (e) => {
   const midX = window.innerWidth / 2;
   const midY = window.innerHeight / 2;
   const diffX = midX - e.pageX;
@@ -75,7 +78,13 @@ document.addEventListener('mousemove', (e) => {
   fg.style.left = `${fgOffsetX + diffX / 20}px`;
   bg.style.top = `${offsetY - diffY / 5}px`;
   bg.style.left = `${bgOffsetX - diffX / 10}px`;
-  body.style.backgroundPosition = `${diffX / 100}% ${diffY / 200}%`;
+};
+
+document.addEventListener('mousemove', (e) => {
+  moveBg(e);
+});
+document.addEventListener('touchmove', (e) => {
+  moveBg(e);
 });
 
 let display = false;
@@ -83,20 +92,51 @@ const heights = {
   true: ['600px', '300px', '35px', '25px'],
   false: ['300px', '0px', '0px', '0px'],
 };
+const mobileHeights = {
+  true: ['300px', '300px', '50px', '35px'],
+  false: ['55px', '0px', '0px', '0px'],
+};
 const opacityStyle = { true: '1', false: '0' };
 
-devil.onclick = () => {
-  display = !display;
+const displayDesktopChat = () => {
   chat.style.height = heights[display][0];
   chatbox.style.opacity = opacityStyle[display];
   chatbox.style.height = heights[display][1];
   devilForm.style.height = heights[display][2];
   input.style.height = heights[display][3];
   button.style.height = heights[display][3];
+};
+
+const displayMobileChat = () => {
+  chat.style.height = mobileHeights[display][0];
+  devil.style.opacity = opacityStyle[display];
+  chatbox.style.opacity = opacityStyle[display];
+  chatbox.style.height = mobileHeights[display][1];
+  devilForm.style.height = mobileHeights[display][2];
+  input.style.height = mobileHeights[display][3];
+  button.style.height = mobileHeights[display][3];
+};
+
+const changeDisplay = (callback) => {
+  display = !display;
+  callback();
   if (display) {
     devilSpeech.style.opacity = 0;
+    setTimeout(() => {
+      devilResponse('welcome');
+    }, 1000);
   }
 };
+
+if (window.innerWidth < 600) {
+  chatSwitch.onclick = () => {
+    changeDisplay(displayMobileChat);
+  };
+} else {
+  devil.onclick = () => {
+    changeDisplay(displayDesktopChat);
+  };
+}
 
 devil.addEventListener('mouseenter', () => {
   if (!display) {
@@ -109,8 +149,13 @@ devil.addEventListener('mouseleave', () => {
 });
 
 const bounce = () => {
-  let y = 5 * Math.sin(time / 20);
-  devil.style.top = `${y - 20}px`;
+  const y = 5 * Math.sin(time / 20);
+  if (window.innerWidth < 600) {
+    const y = 5 * Math.sin(time / 15);
+    devil.style.bottom = `${y + 55}px`;
+  } else {
+    devil.style.top = `${y - 20}px`;
+  }
   time++;
   requestAnimationFrame(bounce);
 };
@@ -125,9 +170,10 @@ devilForm.onsubmit = (e) => {
   e.preventDefault();
   if (message.length > 0) {
     writeMessage();
+    // devilResponse();
     setTimeout(() => {
       devilResponse();
-    }, 1000);
+    }, 500);
     devilForm.reset();
     message = '';
   }
@@ -140,10 +186,19 @@ const writeMessage = () => {
   newMessage = messages.appendChild(newMessage);
 };
 
-const devilResponse = () => {
+const devilResponse = (content = '') => {
   const index = Math.floor(Math.random() * devilWords.length);
   let newMessage = document.createElement('li');
-  newMessage.innerHTML = devilWords[index];
+
+  if (content) {
+    newMessage.innerHTML = content;
+  } else {
+    newMessage.innerHTML = '...';
+    setTimeout(() => {
+      newMessage.innerHTML = devilWords[index];
+    }, 1000);
+  }
+
   newMessage.className = 'devil message';
   newMessage = messages.appendChild(newMessage);
 };

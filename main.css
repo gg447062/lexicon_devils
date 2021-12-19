@@ -1,15 +1,15 @@
 body {
-  margin: 0 auto;
-  padding: 0;
   width: 100vw;
   height: 100vh;
+  margin: 0;
+  padding: 0;
   font-size: 10px;
-  box-sizing: border-box;
   font-family: "VT323", monospace;
-  cursor: url(assets/devil_cursor.cur), auto;
-  background-color: #ffbb00;
-  background-image: url("assets/blue_bg.jpg");
-  background-position: 50% 0%;
+  cursor: url(assets/pointer.cur), auto;
+  background-color: #ff0000;
+  background-image: url("assets/desktop_background_2.png");
+  background-size: cover;
+  overflow: hidden;
   color: #1e1edc;
 }
 
@@ -21,9 +21,16 @@ header {
   color: #1e1edc;
   font-size: 5em;
   position: absolute;
+  top: 0px;
   width: 100%;
   z-index: 3;
   height: 110px;
+}
+
+@media (min-width: 600px) {
+  .header-links {
+    display: none;
+  }
 }
 
 footer {
@@ -33,6 +40,17 @@ footer {
   width: 35%;
   position: absolute;
   bottom: 5px;
+  left: 0;
+}
+@media (max-width: 599px) {
+  footer {
+    display: none;
+    top: 0px;
+  }
+}
+
+a:hover {
+  cursor: url(assets/hover_pointer.cur), auto;
 }
 
 button {
@@ -44,28 +62,52 @@ button {
   transition: all 1s ease;
 }
 
-#flying-devil {
-  position: absolute;
-  height: 70px;
-  top: 5px;
+#header-devil {
+  height: 80px;
   z-index: 0;
 }
+@media (max-width: 599px) {
+  #header-devil {
+    height: 70px;
+    top: 11px;
+  }
+}
 
-#chat_container {
+.links {
+  height: 60px;
+}
+
+#chat-container {
   position: absolute;
-  bottom: 15px;
+  bottom: 10px;
   right: 10px;
   height: 300px;
   width: 250px;
+  margin: 0;
+  z-index: 5;
   transition: height 1s ease;
+}
+@media (max-width: 599px) {
+  #chat-container {
+    right: 1%;
+    height: 55px;
+    width: 95%;
+  }
 }
 
 #big-devil {
   position: absolute;
-  top: 0px;
   right: -10px;
   height: 300px;
   z-index: 3;
+}
+@media (max-width: 599px) {
+  #big-devil {
+    opacity: 0;
+    right: -10px;
+    height: 150px;
+    transition: all 1.25s ease;
+  }
 }
 
 #devil-chat {
@@ -84,6 +126,14 @@ button {
   opacity: 0;
   transition: all 1s ease;
 }
+@media (max-width: 599px) {
+  #devil-chat {
+    justify-content: flex-end;
+    -webkit-transition: all 1s ease;
+    -webkit-transition: -webkit-transform 1s ease;
+    transition: all 1s ease;
+  }
+}
 
 #messages-container {
   overflow-y: auto;
@@ -97,6 +147,15 @@ button {
   height: 89%;
   width: 100%;
   font-size: 20px;
+}
+@media (max-width: 599px) {
+  #messages-container {
+    width: 75%;
+    height: 85%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
 
 .message {
@@ -117,6 +176,40 @@ button {
   align-self: flex-start;
 }
 
+.mobile-chat-icon {
+  width: 20%;
+  display: none;
+}
+@media (max-width: 599px) {
+  .mobile-chat-icon {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    right: 5px;
+    top: 15px;
+  }
+}
+
+#chat-switch {
+  display: none;
+  text-align: center;
+}
+@media (max-width: 599px) {
+  #chat-switch {
+    display: block;
+    border: 1px solid #1e1edc;
+    background-color: #ffbb00;
+    padding: 5px;
+    margin: 0px;
+    width: 100%;
+    color: #1e1edc;
+    font-size: 20px;
+    position: absolute;
+    z-index: 10;
+    bottom: -3.1%;
+  }
+}
+
 #devil-form {
   display: flex;
   justify-content: space-around;
@@ -128,24 +221,30 @@ button {
   transition: all 1.25s ease;
 }
 
-#devil_chat_input {
+#devil-chat-input {
   border-radius: 5px;
   border: 1px solid #1e1edc;
   box-sizing: border-box;
   height: 0px;
-  width: 75%;
+  width: 100%;
   margin-right: 5px;
   background-color: #ffbb00;
   color: #1e1edc;
   padding: 5px;
   transition: all 1s ease;
   font-family: "VT323", monospace;
+  font-size: 16px;
 }
 
-#devil_chat_input:focus {
+#devil-chat-input:focus {
   outline: none;
   background-color: #1e1edc;
   color: #ffbb00;
+}
+@media (max-width: 599px) {
+  #devil-chat-input:focus {
+    font-size: 16px;
+  }
 }
 
 ::placeholder {
@@ -198,22 +297,34 @@ button {
   box-shadow: 3px 0px #1e1edc;
 }
 
-#bg_img {
+#bg-img {
   position: absolute;
   top: calc(50vh - 200px);
   left: calc(50vw - 300px);
+  height: 400px;
   z-index: 0;
 }
+@media (max-width: 599px) {
+  #bg-img {
+    height: 200px;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 150px);
+  }
+}
 
-#fg_img {
+#fg-img {
   position: absolute;
   top: calc(50vh - 200px);
   left: calc(50vw - 200px);
+  height: 400px;
   z-index: 3;
 }
-
-.links {
-  height: 60px;
+@media (max-width: 599px) {
+  #fg-img {
+    height: 200px;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 100px);
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
