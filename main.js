@@ -14,9 +14,6 @@ const headerLink = document.getElementById('header-link');
 const messages = document.getElementById('messages-container');
 const chatSwitch = document.getElementById('chat-switch');
 
-const hasTouchscreen = 'ontouchstart' in window;
-alert(hasTouchscreen ? 'has touchscreen' : "doesn't have touchscreen");
-
 let spoken = false;
 let time = 0;
 let clicked = 0;
