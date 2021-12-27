@@ -44,21 +44,6 @@ headerLink.onclick = (e) => {
   }
 };
 
-// wrappers.forEach((wrapper) => {
-//   wrapper.addEventListener('mouseenter', () => {
-//     const link = wrapper.children[0];
-
-//     link.style.transform = 'scaleX(-1.5)';
-//   });
-// });
-
-// wrappers.forEach((wrapper) => {
-//   wrapper.addEventListener('mouseleave', () => {
-//     const link = wrapper.children[0];
-//     link.style.transform = 'scaleX(1)';
-//   });
-// });
-
 const moveBg = (e) => {
   const midX = window.innerWidth / 2;
   const midY = window.innerHeight / 2;
@@ -135,15 +120,17 @@ if (window.innerWidth < 600) {
   };
 }
 
-devil.addEventListener('mouseenter', () => {
-  if (!display) {
-    devilSpeech.style.opacity = 1;
-  }
-});
+if (window.innerWidth > 600) {
+  devil.addEventListener('mouseenter', () => {
+    if (!display) {
+      devilSpeech.style.opacity = 1;
+    }
+  });
 
-devil.addEventListener('mouseleave', () => {
-  devilSpeech.style.opacity = 0;
-});
+  devil.addEventListener('mouseleave', () => {
+    devilSpeech.style.opacity = 0;
+  });
+}
 
 const bounce = () => {
   const y = 5 * Math.sin(time / 20);

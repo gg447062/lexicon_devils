@@ -12,6 +12,11 @@ body {
   overflow: hidden;
   color: #1e1edc;
 }
+@media (max-width: 599px) and (orientation: portrait) {
+  body {
+    background-image: url("assets/mobile_background.png");
+  }
+}
 
 header {
   display: flex;
@@ -42,7 +47,7 @@ footer {
   bottom: 5px;
   left: 0;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   footer {
     display: none;
     top: 0px;
@@ -66,7 +71,7 @@ button {
   height: 80px;
   z-index: 0;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #header-devil {
     height: 70px;
     top: 11px;
@@ -87,11 +92,11 @@ button {
   z-index: 5;
   transition: height 1s ease;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #chat-container {
-    right: 1%;
+    left: 2%;
     height: 55px;
-    width: 95%;
+    width: 100%;
   }
 }
 
@@ -101,7 +106,7 @@ button {
   height: 300px;
   z-index: 3;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #big-devil {
     opacity: 0;
     right: -10px;
@@ -126,7 +131,7 @@ button {
   opacity: 0;
   transition: all 1s ease;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #devil-chat {
     justify-content: flex-end;
     -webkit-transition: all 1s ease;
@@ -148,7 +153,7 @@ button {
   width: 100%;
   font-size: 20px;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #messages-container {
     width: 75%;
     height: 85%;
@@ -180,7 +185,7 @@ button {
   width: 20%;
   display: none;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   .mobile-chat-icon {
     display: block;
     position: absolute;
@@ -194,7 +199,7 @@ button {
   display: none;
   text-align: center;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #chat-switch {
     display: block;
     border: 1px solid #1e1edc;
@@ -241,7 +246,7 @@ button {
   background-color: #1e1edc;
   color: #ffbb00;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #devil-chat-input:focus {
     font-size: 16px;
   }
@@ -304,7 +309,7 @@ button {
   height: 400px;
   z-index: 0;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #bg-img {
     height: 200px;
     top: calc(50vh - 150px);
@@ -319,7 +324,7 @@ button {
   height: 400px;
   z-index: 3;
 }
-@media (max-width: 599px) {
+@media (max-width: 599px) and (orientation: portrait) {
   #fg-img {
     height: 200px;
     top: calc(50vh - 150px);

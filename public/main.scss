@@ -20,11 +20,18 @@ $centerY: math.div(100vh, 2);
 
 // ----- breakpoints ----
 
-@mixin phone-only {
-  @media (max-width: 599px) {
+@mixin phone-portrait {
+  @media (max-width: 599px) and (orientation: portrait) {
     @content;
   }
 }
+
+@mixin phone-landscape {
+  @media (max-width: 599px) and (orientation: landscape) {
+    @content;
+  }
+}
+
 @mixin tablet-portrait-up {
   @media (min-width: 600px) {
     @content;
@@ -59,6 +66,9 @@ body {
   background-size: cover;
   overflow: hidden;
   color: $text_main;
+  @include phone-portrait() {
+    background-image: url('assets/mobile_background.png');
+  }
 }
 
 header {
@@ -85,7 +95,7 @@ footer {
   position: absolute;
   bottom: 5px;
   left: 0;
-  @include phone-only() {
+  @include phone-portrait() {
     display: none;
     top: 0px;
   }
@@ -107,7 +117,7 @@ button {
 #header-devil {
   height: 80px;
   z-index: 0;
-  @include phone-only() {
+  @include phone-portrait() {
     height: 70px;
     top: 11px;
   }
@@ -128,10 +138,10 @@ button {
   margin: 0;
   z-index: 5;
   transition: height 1s ease;
-  @include phone-only() {
-    right: 1%;
+  @include phone-portrait() {
+    left: 2%;
     height: 55px;
-    width: 95%;
+    width: 100%;
   }
 }
 
@@ -140,7 +150,7 @@ button {
   right: -10px;
   height: 300px;
   z-index: 3;
-  @include phone-only() {
+  @include phone-portrait() {
     opacity: 0;
     right: -10px;
     height: 150px;
@@ -161,7 +171,7 @@ button {
   height: 0px;
   opacity: 0;
   transition: all 1s ease;
-  @include phone-only() {
+  @include phone-portrait() {
     justify-content: flex-end;
     -webkit-transition: all 1s ease;
     -webkit-transition: -webkit-transform 1s ease;
@@ -181,7 +191,7 @@ button {
   height: 89%;
   width: 100%;
   font-size: 20px;
-  @include phone-only() {
+  @include phone-portrait() {
     width: 75%;
     height: 85%;
     position: absolute;
@@ -211,7 +221,7 @@ button {
 .mobile-chat-icon {
   width: 20%;
   display: none;
-  @include phone-only() {
+  @include phone-portrait() {
     display: block;
     position: absolute;
     z-index: 10;
@@ -223,7 +233,7 @@ button {
 #chat-switch {
   display: none;
   text-align: center;
-  @include phone-only() {
+  @include phone-portrait() {
     display: block;
     @include blue-border();
     background-color: $body_color;
@@ -268,7 +278,7 @@ button {
   outline: none;
   background-color: $text_main;
   color: $body_color;
-  @include phone-only() {
+  @include phone-portrait() {
     font-size: 16px;
   }
 }
@@ -331,7 +341,7 @@ button {
   left: calc(50vw - 300px);
   height: 400px;
   z-index: 0;
-  @include phone-only() {
+  @include phone-portrait() {
     height: 200px;
     top: calc(50vh - 150px);
     left: calc(50vw - 150px);
@@ -344,7 +354,7 @@ button {
   left: calc(50vw - 200px);
   height: 400px;
   z-index: 3;
-  @include phone-only() {
+  @include phone-portrait() {
     height: 200px;
     top: calc(50vh - 150px);
     left: calc(50vw - 100px);
