@@ -19,15 +19,15 @@ let time = 0;
 let clicked = 0;
 
 const devilWords = [
-  `the chat is over there dummy i'm just a bot`,
-  'lexicon devils makes you smarter.',
-  `can i suggest try typing in the chat? the link to the discord is in the '...'`,
+  `the chat is over there dummy, i'm just a bot. click the discord link over to your left`,
+  'may i suggest trying the chat? click the discord link in the left corner of your screen',
+  `you sure like to chat, huh? we are @devilslexicon on twitter. try the link in the bottom left`,
+  `you look lost pal, get back to headquarters! the link to Lexicon HQ is just to the left`,
   'having trouble?',
-  `hello again, i think you should try the twitter.`,
   "I'm the devil >:)",
   "I'm a lexicon devil with a battered brain",
   'hee hee hee',
-  "you're outta luck",
+  'All outta luck',
 ];
 
 headerLink.onclick = (e) => {
@@ -154,7 +154,7 @@ devilForm.onsubmit = (e) => {
   e.preventDefault();
   if (message.length > 0) {
     writeMessage();
-    // devilResponse();
+
     setTimeout(() => {
       devilResponse();
     }, 500);
