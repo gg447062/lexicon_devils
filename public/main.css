@@ -63,6 +63,13 @@ footer {
     top: 0px;
   }
 }
+/*
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+} */
 
 a:hover {
   cursor: url(assets/hover_pointer.cur), auto;
@@ -78,8 +85,11 @@ button {
 }
 
 #header-devil {
+  position: absolute;
+  top: 0.25em;
+  left: 0.25em;
+  z-index: 1000;
   height: 80px;
-  z-index: 0;
 }
 @media (max-width: 599px) and (orientation: portrait) {
   #header-devil {
@@ -344,4 +354,11 @@ button {
     top: calc(50vh - 150px);
     left: calc(50vw - 100px);
   }
+}
+
+.particle {
+  position: absolute;
+  top: 2em;
+  left: 2em;
+  display: none;
 }

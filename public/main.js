@@ -10,13 +10,12 @@ const bg = document.getElementById('bg-img');
 const devilSpeech = document.getElementById('devil-speech');
 const headerDevil = document.getElementById('header-devil');
 const body = document.querySelector('body');
-const headerLink = document.getElementById('header-link');
 const messages = document.getElementById('messages-container');
 const chatSwitch = document.getElementById('chat-switch');
+const canvas = document.getElementById('canvas');
 
 let spoken = false;
 let time = 0;
-let clicked = 0;
 
 const devilWords = [
   `the chat is over there dummy, i'm just a bot. click the discord link over to your left`,
@@ -30,18 +29,47 @@ const devilWords = [
   'All outta luck',
 ];
 
-headerLink.onclick = (e) => {
-  if (clicked < 1) {
-    e.preventDefault();
-    headerDevil.setAttribute('src', 'assets/devil_hands.png');
-    clicked++;
+let img;
+
+const loadCanvas = () => {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  img = new Image(70, 70);
+  img.src = 'assets/Lexicon_Devil_Germs.png';
+};
+
+const timer = (ms) => new Promise((res) => setTimeout(res, ms));
+
+let timestamp = 0;
+
+let y = 10;
+let x = 10;
+
+const emitParticles = async () => {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.drawImage(img, x, y, img.height, img.width);
+
+  x += 10;
+  y = 260 * Math.sin(timestamp / 10); //260 + 30 *
+  console.log(y);
+  timestamp += 1;
+  if (timestamp < 100) {
+    window.requestAnimationFrame(emitParticles);
+  } else {
+    y = 10;
+    x = 10;
   }
-  if (clicked < 2) {
-    setTimeout(() => {
-      clicked++;
-      headerLink.click();
-    }, 500);
-  }
+};
+
+headerDevil.onclick = (e) => {
+  timestamp = 0;
+  emitParticles();
+  headerDevil.setAttribute('src', 'assets/devil_hands.png');
+  setTimeout(() => {
+    headerDevil.setAttribute('src', 'assets/Lexicon_Devil_Germs.png');
+  }, 3000);
 };
 
 const moveBg = (e) => {
@@ -187,4 +215,5 @@ const devilResponse = (content = '') => {
   newMessage = messages.appendChild(newMessage);
 };
 
+loadCanvas();
 bounce();
