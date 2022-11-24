@@ -216,7 +216,6 @@ class Particle {
       this.directionY *= -1.2;
     }
     this.y += this.directionY;
-    this.size -= 0.4;
     this.draw();
   }
 }
@@ -227,13 +226,14 @@ function getRandomInt(min, max) {
 
 function emitParticles() {
   const newX = getRandomInt(-1, 10);
+  const newSize = getRandomInt(40, 60);
 
   if (!deadParticles.length) {
-    particleArray.push(new Particle(10, 10, newX, -10, 60));
+    particleArray.push(new Particle(10, 10, newX, -10, newSize));
   } else {
     const currentDead = deadParticles.pop();
 
-    currentDead.reset(10, 10, newX, -10, 60);
+    currentDead.reset(10, 10, newX, -10, newSize);
     particleArray.push(currentDead);
   }
 }
@@ -262,10 +262,18 @@ function animate() {
   } else return;
 }
 
+const audioOptions = [
+  document.getElementById('beer'),
+  document.getElementById('laugh'),
+];
+
 headerDevil.onclick = () => {
+  const audio = audioOptions[getRandomInt(0, 2)];
+  audio.volume = 0.5;
   timestamp = -1;
   emitted = 0;
   animate();
+  audio.play();
   headerDevil.setAttribute('src', 'assets/devil_hands.png');
   setTimeout(() => {
     headerDevil.setAttribute('src', 'assets/Lexicon_Devil_Germs.png');
