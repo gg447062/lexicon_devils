@@ -13,6 +13,7 @@ const body = document.querySelector('body');
 const messages = document.getElementById('messages-container');
 const chatSwitch = document.getElementById('chat-switch');
 const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
 let spoken = false;
 let time = 0;
@@ -28,49 +29,6 @@ const devilWords = [
   'hee hee hee',
   'All outta luck',
 ];
-
-let img;
-
-const loadCanvas = () => {
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
-  img = new Image(70, 70);
-  img.src = 'assets/Lexicon_Devil_Germs.png';
-};
-
-const timer = (ms) => new Promise((res) => setTimeout(res, ms));
-
-let timestamp = 0;
-
-let y = 10;
-let x = 10;
-
-const emitParticles = async () => {
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.drawImage(img, x, y, img.height, img.width);
-
-  x += 10;
-  y = 260 * Math.sin(timestamp / 10); //260 + 30 *
-  console.log(y);
-  timestamp += 1;
-  if (timestamp < 100) {
-    window.requestAnimationFrame(emitParticles);
-  } else {
-    y = 10;
-    x = 10;
-  }
-};
-
-headerDevil.onclick = (e) => {
-  timestamp = 0;
-  emitParticles();
-  headerDevil.setAttribute('src', 'assets/devil_hands.png');
-  setTimeout(() => {
-    headerDevil.setAttribute('src', 'assets/Lexicon_Devil_Germs.png');
-  }, 3000);
-};
 
 const moveBg = (e) => {
   const midX = window.innerWidth / 2;
@@ -215,5 +173,104 @@ const devilResponse = (content = '') => {
   newMessage = messages.appendChild(newMessage);
 };
 
-loadCanvas();
+let img;
+let maxParticles = 15;
+let emitted = 0;
+let timestamp = -1;
+let particleArray = [];
+let deadParticles = [];
+
+const init = () => {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  img = new Image(50, 50);
+  img.src = 'assets/Lexicon_Devil_Germs.png';
+};
+
+const timer = (ms) => new Promise((res) => setTimeout(res, ms));
+
+class Particle {
+  constructor(x, y, directionX, directionY, size) {
+    this.x = x;
+    this.y = y;
+    this.directionX = directionX;
+    this.directionY = directionY;
+    this.size = size;
+  }
+
+  reset(x, y, directionX, directionY, size) {
+    this.x = x;
+    this.y = y;
+    this.directionX = directionX;
+    this.directionY = directionY;
+    this.size = size;
+  }
+
+  draw() {
+    ctx.drawImage(img, this.x, this.y, this.size, this.size);
+  }
+
+  update() {
+    this.x += this.directionX;
+    if (this.y < -100) {
+      this.directionY *= -1.2;
+    }
+    this.y += this.directionY;
+    this.size -= 0.4;
+    this.draw();
+  }
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function emitParticles() {
+  const newX = getRandomInt(-1, 10);
+
+  if (!deadParticles.length) {
+    particleArray.push(new Particle(10, 10, newX, -10, 60));
+  } else {
+    const currentDead = deadParticles.pop();
+
+    currentDead.reset(10, 10, newX, -10, 60);
+    particleArray.push(currentDead);
+  }
+}
+
+function animate() {
+  timestamp += 1;
+  if (emitted < maxParticles && !(timestamp % 4)) {
+    emitParticles();
+    emitted += 1;
+  }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < particleArray.length; i++) {
+    const currentParticle = particleArray[i];
+    if (currentParticle.y > canvas.height) {
+      deadParticles.push(currentParticle);
+      particleArray = particleArray
+        .slice(0, i)
+        .concat(particleArray.slice(i + 1));
+    } else {
+      currentParticle.update();
+    }
+  }
+  if (particleArray.length > 0) {
+    window.requestAnimationFrame(animate);
+  } else return;
+}
+
+headerDevil.onclick = () => {
+  timestamp = -1;
+  emitted = 0;
+  animate();
+  headerDevil.setAttribute('src', 'assets/devil_hands.png');
+  setTimeout(() => {
+    headerDevil.setAttribute('src', 'assets/Lexicon_Devil_Germs.png');
+  }, 2500);
+};
+
+init();
 bounce();

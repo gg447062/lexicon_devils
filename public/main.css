@@ -63,13 +63,14 @@ footer {
     top: 0px;
   }
 }
-/*
+
 canvas {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100;
-} */
+  z-index: 100001;
+  pointer-events: none;
+}
 
 a:hover {
   cursor: url(assets/hover_pointer.cur), auto;
