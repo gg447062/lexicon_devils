@@ -174,7 +174,7 @@ const devilResponse = (content = '') => {
 };
 
 let img;
-let maxParticles = 15;
+let maxParticles = 20;
 let emitted = 0;
 let timestamp = -1;
 let particleArray = [];
@@ -225,7 +225,7 @@ function getRandomInt(min, max) {
 }
 
 function emitParticles() {
-  const newX = getRandomInt(-1, 10);
+  const newX = getRandomInt(-2, 20);
   const newSize = getRandomInt(40, 60);
 
   if (!deadParticles.length) {
